@@ -8,12 +8,16 @@
 |---|---|
 | **技術** | TypeScript · [PixiJS](https://pixijs.com/) v8 · [Matter.js](https://brm.io/matter-js/) · Vite 6 · Electron 33 |
 | **平台** | 瀏覽器（Web）· Electron 桌面 · Windows x64 / ARM64 打包 |
+| **線上試玩** | [https://ergeargwer.github.io/water-ring-toss/](https://ergeargwer.github.io/water-ring-toss/) |
 | **授權** | MIT |
+
+> 推送到 `main` 後，GitHub Actions 會自動建置並部署到 **GitHub Pages**。首次啟用後約 1–3 分鐘可開啟。
 
 ---
 
 ## 目錄
 
+- [線上試玩（GitHub Pages）](#線上試玩github-pages)
 - [遊戲簡介](#遊戲簡介)
 - [功能一覽](#功能一覽)
 - [環境需求](#環境需求)
@@ -28,6 +32,39 @@
 - [疑難排解](#疑難排解)
 - [開發歷程](#開發歷程)
 - [授權](#授權)
+
+---
+
+## 線上試玩（GitHub Pages）
+
+| | |
+|---|---|
+| **網址** | https://ergeargwer.github.io/water-ring-toss/ |
+| **部署方式** | GitHub Actions（`.github/workflows/deploy-pages.yml`） |
+| **觸發條件** | 推送至 `main`，或在 Actions 分頁手動 **Run workflow** |
+
+### 本機預覽與 Pages 建置相同產物
+
+```bash
+npm run build:web
+npm run preview
+```
+
+靜態檔輸出於 `dist/`，與線上部署內容一致。`vite.config.ts` 使用 `base: './'`，可正確載入於 `https://<user>.github.io/<repo>/` 路徑下。
+
+### 首次設定（維護者）
+
+若倉庫尚未開啟 Pages，在 GitHub 網頁：
+
+1. **Settings → Pages**
+2. **Build and deployment → Source** 選 **GitHub Actions**
+
+或使用 CLI（倉庫需已有 workflow 並推送過）：
+
+```bash
+gh api -X POST repos/ergeargwer/water-ring-toss/pages \
+  -f build_type=workflow
+```
 
 ---
 
@@ -132,7 +169,7 @@ npx electron .
 | `npm run dev` | Vite 開發伺服器 |
 | `npm run dev:electron` | Electron + Vite 開發 |
 | `npm run build` | 建置網頁 + 編譯 Electron |
-| `npm run build:web` | 僅建置網頁至 `dist/` |
+| `npm run build:web` | 僅建置網頁至 `dist/`（**GitHub Pages 使用此步驟**） |
 | `npm run preview` | 預覽 production 網頁 |
 | `npm run electron` | 編譯 Electron 並啟動 |
 | `npm run pack` | 建置後 electron-builder 解壓目錄 |
