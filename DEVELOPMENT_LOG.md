@@ -4,8 +4,11 @@
 |------|------|
 | 專案路徑 | `/home/sweet/water-ring-toss` |
 | 技術棧 | TypeScript · PixiJS v8 · Matter.js · Vite 6 · Electron 33 |
-| 記錄日期 | 2026-07-23 |
-| 狀態 | 可運行（Web + Electron 打包設定完成） |
+| 記錄日期 | 2026-07-23（持續更新） |
+| 狀態 | 可運行 · 已發布 GitHub · GitHub Pages 線上可玩 |
+| **GitHub 倉庫** | https://github.com/ergeargwer/water-ring-toss |
+| **線上執行網址** | https://ergeargwer.github.io/water-ring-toss/ |
+| 預設分支 | `main`（Public） |
 
 ---
 
@@ -205,6 +208,7 @@ Windows 實機 `npm run dist:win` 需在 Windows 或對應 CI 環境執行（本
 3. 觸控專用更大 hit 區與手感預設檔（「簡單 / 標準 / 硬核」）  
 4. Linux AppImage / macOS 打包驗證  
 5. 自動化 E2E（Playwright）截圖回歸  
+6. 自訂網域綁定 GitHub Pages  
 
 ---
 
@@ -219,8 +223,116 @@ Windows 實機 `npm run dist:win` 需在 Windows 或對應 CI 環境執行（本
 | 極簡復古 UI、無成就多關 | 已遵守 |
 | 一步步開發、可運行 | 骨架→物理→流程→手感 |
 | 手感微調放進遊戲介面 | FeelSettings + SettingsPanel |
-| 儲存開發歷程 | 本文件 |
+| 儲存開發歷程 | 本文件（含後續更新） |
+| 用 GitHub CLI 發布專案 | 階段六 · 公開倉庫 |
+| GitHub 線上可執行網頁 | 階段七 · Pages 網址 |
+| README 加註線上網址 | 階段八 · 文首醒目區塊 |
 
 ---
 
-*本文件記錄截至 2026-07-23 的開發過程，便於日後接續維護與交接。*
+## 9. 階段六：以 GitHub CLI 發布倉庫
+
+**時間：** 2026-07-23  
+
+**環境：**
+
+- `gh` 2.96.0，已登入帳號 `ergeargwer`
+- 協定 HTTPS · Token 具備 `repo` 等權限
+- 本機 Git：`user.name=ergeargwer` / 已設定 email
+
+**操作步驟：**
+
+1. 確認 `.gitignore` 排除 `node_modules/`、`dist/`、`dist-electron/`、`release/`、`.env`  
+2. `git init -b main`  
+3. `git add .` → 確認未暫存建置產物（29 個原始碼／設定檔）  
+4. Initial commit  
+5. `gh repo create water-ring-toss --public --source=. --remote=origin --push`  
+
+**結果：**
+
+| 項目 | 值 |
+|------|-----|
+| 倉庫 | https://github.com/ergeargwer/water-ring-toss |
+| 可見性 | PUBLIC |
+| 分支 | `main` → `origin/main` |
+| 首 commit | `9fd9524` — Initial release: Water Ring Toss（水壓套圈） |
+
+---
+
+## 10. 階段七：GitHub Pages 線上執行
+
+**目標：** 在 GitHub 上提供免安裝的瀏覽器遊玩頁。
+
+**實作：**
+
+| 檔案 | 說明 |
+|------|------|
+| `.github/workflows/deploy-pages.yml` | push `main` / `workflow_dispatch` → `npm ci` → `npm run build:web` → deploy-pages |
+
+**Pages 設定：**
+
+```bash
+gh api -X POST repos/ergeargwer/water-ring-toss/pages -f build_type=workflow
+```
+
+- Source：**GitHub Actions**（非 branch/docs 靜態）  
+- `vite.config.ts` 維持 `base: './'`，相對路徑適用 `https://<user>.github.io/<repo>/`  
+
+**驗證：**
+
+- Actions run 成功（build ~32s + deploy ~9s）  
+- `curl` 線上首頁 **HTTP 200**，HTML 正確引用 `./assets/*`  
+
+| 項目 | 值 |
+|------|-----|
+| **線上執行網址** | https://ergeargwer.github.io/water-ring-toss/ |
+| Workflow commit | `bdeed04` — Add GitHub Pages deploy workflow |
+
+**之後更新線上版：**
+
+```bash
+git push origin main
+# 約 1–3 分鐘後 Pages 更新
+gh run list --workflow=deploy-pages.yml
+```
+
+---
+
+## 11. 階段八：README 線上網址加註
+
+**需求：** 更新 README，明確加註線上執行網址。
+
+**調整重點：**
+
+1. 文首新增「🌐 線上執行網址（GitHub Pages）」醒目區塊與可點連結  
+2. 專案資訊表加入「線上執行」列  
+3. 「線上試玩」章節重複列出純文字網址與連結，方便複製  
+
+**commit：** `716704c` — docs: highlight online play URL in README  
+
+---
+
+## 12. Git 提交時間線（截至本文更新）
+
+| Commit | 說明 |
+|--------|------|
+| `9fd9524` | Initial release：完整遊戲源碼、README、DEVELOPMENT_LOG |
+| `bdeed04` | GitHub Pages workflow + README 部署說明 |
+| `716704c` | README 文首加註線上執行網址 |
+
+（後續「儲存開發紀錄」更新將接續 commit。）
+
+---
+
+## 13. 重要連結速查
+
+| 用途 | URL |
+|------|-----|
+| 原始碼倉庫 | https://github.com/ergeargwer/water-ring-toss |
+| **線上執行（遊玩）** | https://ergeargwer.github.io/water-ring-toss/ |
+| Actions 工作流 | https://github.com/ergeargwer/water-ring-toss/actions |
+| 本機路徑 | `/home/sweet/water-ring-toss` |
+
+---
+
+*本文件記錄截至 2026-07-23 的開發過程（含 GitHub 發布與 Pages），便於日後接續維護與交接。*
