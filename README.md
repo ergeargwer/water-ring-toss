@@ -4,20 +4,41 @@
 
 在透明水箱裡用左右按鈕噴水，把彩色塑料圈套上立針——手感可調、物理可玩、外觀懷舊。
 
+---
+
+## 🌐 線上執行網址（GitHub Pages）
+
+> **無需安裝，瀏覽器開啟即可遊玩：**
+>
+> ### 👉 [https://ergeargwer.github.io/water-ring-toss/](https://ergeargwer.github.io/water-ring-toss/)
+>
+> | 項目 | 內容 |
+> |------|------|
+> | 線上網址 | https://ergeargwer.github.io/water-ring-toss/ |
+> | 倉庫首頁 | https://github.com/ergeargwer/water-ring-toss |
+> | 部署來源 | `main` 分支 · GitHub Actions · GitHub Pages |
+
+建議使用 **Chrome / Edge / Chromium** 等支援 WebGL 的瀏覽器；首次開啟若需音效，請先點一下畫面解鎖 AudioContext。
+
+推送到 `main` 後會自動重新建置部署（約 1–3 分鐘生效）。詳見下方 [線上部署說明](#線上試玩github-pages)。
+
+---
+
+## 專案資訊
+
 | | |
 |---|---|
 | **技術** | TypeScript · [PixiJS](https://pixijs.com/) v8 · [Matter.js](https://brm.io/matter-js/) · Vite 6 · Electron 33 |
 | **平台** | 瀏覽器（Web）· Electron 桌面 · Windows x64 / ARM64 打包 |
-| **線上試玩** | [https://ergeargwer.github.io/water-ring-toss/](https://ergeargwer.github.io/water-ring-toss/) |
+| **線上執行** | [https://ergeargwer.github.io/water-ring-toss/](https://ergeargwer.github.io/water-ring-toss/) |
 | **授權** | MIT |
-
-> 推送到 `main` 後，GitHub Actions 會自動建置並部署到 **GitHub Pages**。首次啟用後約 1–3 分鐘可開啟。
 
 ---
 
 ## 目錄
 
-- [線上試玩（GitHub Pages）](#線上試玩github-pages)
+- [線上執行網址（GitHub Pages）](#-線上執行網址github-pages)
+- [線上部署說明](#線上試玩github-pages)
 - [遊戲簡介](#遊戲簡介)
 - [功能一覽](#功能一覽)
 - [環境需求](#環境需求)
@@ -36,6 +57,14 @@
 ---
 
 ## 線上試玩（GitHub Pages）
+
+### 線上執行網址
+
+```
+https://ergeargwer.github.io/water-ring-toss/
+```
+
+直接點擊：[https://ergeargwer.github.io/water-ring-toss/](https://ergeargwer.github.io/water-ring-toss/)
 
 | | |
 |---|---|
